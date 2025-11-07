@@ -1,6 +1,5 @@
 "use client";
 
-import { use } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -61,8 +60,8 @@ const brandDetails: Record<string, any> = {
   },
 };
 
-export default function BrandDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function BrandDetailPage({ params }: { params: { id: string } }) {
+  const { id } = params;
   const brand = brandDetails[id];
 
   if (!brand) {
