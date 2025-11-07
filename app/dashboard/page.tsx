@@ -9,6 +9,7 @@ import SpendVsLeadsChart from "@/components/charts/SpendVsLeadsChart"
 import PlatformBreakdownChart from "@/components/charts/PlatformBreakdownChart"
 import ObjectivesChart from "@/components/charts/ObjectivesChart"
 import FunnelChart from "@/components/charts/FunnelChart"
+import CopilotChat from "@/components/CopilotChat"
 
 const platformData = [
   { platform: "Meta", spend: "$980", leads: 78, cpl: "$12.56" },
@@ -257,6 +258,11 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
         </div>
+      </div>
+
+      {/* Campaign Copilot */}
+      <div className="mb-8">
+        <CopilotChat />
       </div>
     </div>
   )

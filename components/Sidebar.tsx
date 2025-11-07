@@ -9,7 +9,8 @@ import {
   Megaphone, 
   Image as ImageIcon, 
   CheckSquare, 
-  FileBarChart 
+  FileBarChart,
+  Bot
 } from "lucide-react"
 
 const menuItems = [
@@ -17,6 +18,12 @@ const menuItems = [
     title: "Overview",
     href: "/dashboard",
     icon: LayoutDashboard,
+  },
+  {
+    title: "Campaign Copilot",
+    href: "/dashboard/copilot",
+    icon: Bot,
+    highlight: true,
   },
   {
     title: "Brands",
@@ -64,14 +71,23 @@ export default function Sidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors relative",
                 isActive
-                  ? "bg-blue-600 text-white"
+                  ? item.highlight
+                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
+                    : "bg-blue-600 text-white"
+                  : item.highlight
+                  ? "text-blue-300 hover:bg-slate-800 hover:text-blue-200 border border-blue-500/30"
                   : "text-slate-300 hover:bg-slate-800 hover:text-white"
               )}
             >
               <Icon className="h-5 w-5" />
               {item.title}
+              {item.highlight && !isActive && (
+                <span className="ml-auto text-[10px] bg-blue-500 text-white px-1.5 py-0.5 rounded-full font-semibold">
+                  AI
+                </span>
+              )}
             </Link>
           )
         })}
