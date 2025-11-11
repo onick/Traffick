@@ -34,7 +34,28 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
-    
+
+    # Platform OAuth Credentials
+    # Meta (Facebook/Instagram)
+    META_APP_ID: Optional[str] = None
+    META_APP_SECRET: Optional[str] = None
+    META_REDIRECT_URI: str = "http://localhost:8000/api/platforms/meta/callback"
+
+    # Google Ads
+    GOOGLE_CLIENT_ID: Optional[str] = None
+    GOOGLE_CLIENT_SECRET: Optional[str] = None
+    GOOGLE_REDIRECT_URI: str = "http://localhost:8000/api/platforms/google/callback"
+
+    # TikTok for Business
+    TIKTOK_APP_ID: Optional[str] = None
+    TIKTOK_APP_SECRET: Optional[str] = None
+    TIKTOK_REDIRECT_URI: str = "http://localhost:8000/api/platforms/tiktok/callback"
+
+    # LinkedIn Marketing
+    LINKEDIN_CLIENT_ID: Optional[str] = None
+    LINKEDIN_CLIENT_SECRET: Optional[str] = None
+    LINKEDIN_REDIRECT_URI: str = "http://localhost:8000/api/platforms/linkedin/callback"
+
     @property
     def cors_origins_list(self) -> List[str]:
         """Parse CORS origins from comma-separated string."""

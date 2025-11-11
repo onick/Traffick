@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.api.copilot import router as copilot_router
+from app.api.platforms import router as platforms_router
 
 # Create FastAPI app
 app = FastAPI(
@@ -27,6 +28,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(copilot_router, prefix="/api")
+app.include_router(platforms_router, prefix="/api")
 
 
 @app.get("/")

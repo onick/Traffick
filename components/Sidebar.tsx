@@ -3,14 +3,15 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { 
-  LayoutDashboard, 
-  Building2, 
-  Megaphone, 
-  Image as ImageIcon, 
-  CheckSquare, 
+import {
+  LayoutDashboard,
+  Building2,
+  Megaphone,
+  Image as ImageIcon,
+  CheckSquare,
   FileBarChart,
-  Bot
+  Bot,
+  Plug
 } from "lucide-react"
 
 const menuItems = [
@@ -34,6 +35,11 @@ const menuItems = [
     title: "Campaigns",
     href: "/dashboard/campaigns",
     icon: Megaphone,
+  },
+  {
+    title: "Integrations",
+    href: "/dashboard/integrations",
+    icon: Plug,
   },
   {
     title: "Creatives",
