@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Edit, Play, Pause, TrendingUp, DollarSign, Target, Eye, MousePointerClick, Users } from "lucide-react";
 import Link from "next/link";
 import SpendVsLeadsChart from "@/components/charts/SpendVsLeadsChart";
+import { useToast } from "@/components/ToastProvider";
 
 const campaignDetails: Record<string, any> = {
   c1: {
@@ -74,6 +76,29 @@ const statusColors: Record<string, string> = {
 export default function CampaignDetailPage({ params }: { params: { id: string } }) {
   const { id } = params;
   const campaign = campaignDetails[id];
+  const [campaignStatus, setCampaignStatus] = useState(campaign?.status || "active");
+  const [isLoading, setIsLoading] = useState(false);
+  const { showToast } = useToast();
+
+  const handlePauseResume = () => {
+    setIsLoading(true);
+
+    // Simular API call
+    setTimeout(() => {
+      const newStatus = campaignStatus === "active" ? "paused" : "active";
+      setCampaignStatus(newStatus);
+      setIsLoading(false);
+
+      showToast(
+        `Campaign ${newStatus === "paused" ? "paused" : "resumed"} successfully`,
+        "success"
+      );
+    }, 500);
+  };
+
+  const handleEdit = () => {
+    showToast("Edit campaign feature coming soon", "info");
+  };
 
   if (!campaign) {
     return (
@@ -109,8 +134,8 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
           <div>
             <div className="flex items-center gap-3 mb-2">
               <h1 className="text-3xl font-bold text-slate-900">{campaign.name}</h1>
-              <Badge variant="secondary" className={statusColors[campaign.status]}>
-                {campaign.status}
+              <Badge variant="secondary" className={statusColors[campaignStatus]}>
+                {campaignStatus}
               </Badge>
               <Badge variant="secondary" className={platformColors[campaign.platform]}>
                 {campaign.platform}
@@ -124,19 +149,29 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
             </p>
           </div>
           <div className="flex gap-2">
-            {campaign.status === "active" && (
-              <Button variant="outline" className="gap-2">
+            {campaignStatus === "active" && (
+              <Button
+                variant="outline"
+                className="gap-2"
+                onClick={handlePauseResume}
+                disabled={isLoading}
+              >
                 <Pause className="h-4 w-4" />
                 Pause
               </Button>
             )}
-            {campaign.status === "paused" && (
-              <Button variant="outline" className="gap-2">
+            {campaignStatus === "paused" && (
+              <Button
+                variant="outline"
+                className="gap-2"
+                onClick={handlePauseResume}
+                disabled={isLoading}
+              >
                 <Play className="h-4 w-4" />
                 Resume
               </Button>
             )}
-            <Button className="gap-2">
+            <Button className="gap-2" onClick={handleEdit}>
               <Edit className="h-4 w-4" />
               Edit Campaign
             </Button>
