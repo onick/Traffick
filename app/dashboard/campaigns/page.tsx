@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Search, Megaphone, TrendingUp, DollarSign, Target, Play, Pause, CheckCircle } from "lucide-react";
 import Link from "next/link";
+import NewCampaignDialog from "@/components/NewCampaignDialog";
 
 // Mock data de campaigns
 const campaignsData = [
@@ -210,6 +211,7 @@ export default function CampaignsPage() {
   const [platformFilter, setPlatformFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [brandFilter, setBrandFilter] = useState("all");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const filteredCampaigns = campaignsData.filter((campaign) => {
     const matchesSearch =
@@ -237,7 +239,7 @@ export default function CampaignsPage() {
             Manage and monitor all your advertising campaigns
           </p>
         </div>
-        <Button className="gap-2">
+        <Button className="gap-2" onClick={() => setIsDialogOpen(true)}>
           <Plus className="h-4 w-4" />
           New Campaign
         </Button>
@@ -421,6 +423,12 @@ export default function CampaignsPage() {
           )}
         </CardContent>
       </Card>
+
+      {/* New Campaign Dialog */}
+      <NewCampaignDialog
+        open={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+      />
     </div>
   );
 }
